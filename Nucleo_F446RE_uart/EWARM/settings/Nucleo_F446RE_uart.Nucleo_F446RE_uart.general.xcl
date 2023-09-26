@@ -1,0 +1,15 @@
+"C:\ProgramFilesIAR9\IAR Systems\Embedded Workbench 9.1\arm\bin\armPROC.dll" 
+
+"C:\ProgramFilesIAR9\IAR Systems\Embedded Workbench 9.1\arm\bin\armSTLINK.dll" 
+
+"D:\temp\repositories\Nucleo_F446RE_uart_example\Nucleo_F446RE_uart\EWARM\Nucleo_F446RE_uart\Exe\Nucleo_F446RE_uart.out" 
+
+--plugin="C:\ProgramFilesIAR9\IAR Systems\Embedded Workbench 9.1\arm\bin\armbat.dll" 
+
+--device_macro="C:\ProgramFilesIAR9\IAR Systems\Embedded Workbench 9.1\arm/config/debugger/ST/STM32F4xx.dmac" 
+
+--flash_loader="C:\ProgramFilesIAR9\IAR Systems\Embedded Workbench 9.1\arm/config/flashloader/ST/FlashSTM32F446xE.board" 
+
+
+
+

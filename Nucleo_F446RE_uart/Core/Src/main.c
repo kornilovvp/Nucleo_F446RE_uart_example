@@ -22,6 +22,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include <string.h>
+#include <stdio.h>
+
+
 #include "ringbuff.h"
 
 
@@ -45,6 +49,7 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart2_rx;
+DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -100,8 +105,18 @@ uint8_t usart_rx_buffer_read(void)
 
 
 
+uint32_t tx_cnt = 0;
 
 
+
+
+
+
+
+
+
+
+// cals after DMA idle data received
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
     __NOP();
@@ -117,6 +132,18 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
     __HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);//we dont want the half done transaction interrupt
     
 }
+
+
+// calls after DMA transmitted
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+}
+
+
+
+
+
 
 
 
@@ -224,6 +251,16 @@ int main(void)
       */
       
       
+      sprintf(usart_tx_buff_data, "Hello world\n\r");
+      
+      if(tx_cnt++ >= 100000)
+      {
+          tx_cnt = 0;
+          
+          HAL_UART_Transmit_DMA(&huart2, usart_tx_buff_data, 13);
+          //HAL_UART_Transmit(&huart2, usart_tx_buff_data, 13, 10);
+      }
+      
       
       
     /* USER CODE END WHILE */
@@ -325,6 +362,9 @@ static void MX_DMA_Init(void)
   /* DMA1_Stream5_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+  /* DMA1_Stream6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
 
 }
 

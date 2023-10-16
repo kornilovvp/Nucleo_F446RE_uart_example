@@ -2,3 +2,6 @@ Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/BrowseInfo/Drivers/STM32F4xx_HAL_Dri
 Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/BrowseInfo/
 Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/Obj/Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
 Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/Obj/
+Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/Exe/Nucleo_F446RE_uart.out
+Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/Exe/Nucleo_F446RE_uart.sim
+Nucleo_F446RE_uart/EWARM/Nucleo_F446RE_uart/List/Nucleo_F446RE_uart.map

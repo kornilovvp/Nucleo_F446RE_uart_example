@@ -1446,6 +1446,18 @@
                 </file>
             </group>
             <group>
+                <name>dma</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Drivers\CMSIS\DSP\Include\arm_common_tables.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Drivers\CMSIS\DSP\Include\arm_const_structs.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Drivers\CMSIS\DSP\Include\arm_math.h</name>
+                </file>
+            </group>
+            <group>
                 <name>user_code</name>
                 <file>
                     <name>$PROJ_DIR$\..\user_code\ringbuff.c</name>

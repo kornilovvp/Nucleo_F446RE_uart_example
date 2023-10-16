@@ -44,7 +44,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
-DMA_HandleTypeDef hdma_usart2_tx;
 DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USER CODE BEGIN PV */
@@ -103,14 +102,43 @@ uint8_t usart_rx_buffer_read(void)
 
 
 
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+    
+    //UART_EndRxTransfer(&huart2);
+    HAL_UART_AbortReceive(&huart2);
+    
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart2, (uint8_t*)usart_rx_dma_buffer, ARRAY_LEN(usart_rx_dma_buffer) );
+    
+    __HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);//we dont want the half done transaction interrupt
+    
+}
 
+
+
+
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
+}
 
 
 
 
 void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart)
 {
-
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
 }
 
 
@@ -167,31 +195,33 @@ int main(void)
 
   
     // Ring buffers need to be setup
-    ringbuff_init(&usart_tx_buff, usart_tx_buff_data, sizeof(usart_tx_buff_data));
+    //ringbuff_init(&usart_tx_buff, usart_tx_buff_data, sizeof(usart_tx_buff_data));
+    //ringbuff_init(&usart_rx_dma_ringbuff, usart_rx_dma_ringbuff_data, sizeof(usart_rx_dma_ringbuff_data));  
+    //HAL_UART_Receive_DMA(&huart2, (uint8_t*)usart_rx_dma_buffer, ARRAY_LEN(usart_rx_dma_buffer));
     
-    ringbuff_init(&usart_rx_dma_ringbuff, usart_rx_dma_ringbuff_data, sizeof(usart_rx_dma_ringbuff_data));  
-  
+    
+    //HAL_UART_Receive_DMA(&huart2, (uint8_t*)usart_rx_dma_buffer, ARRAY_LEN(usart_rx_dma_buffer));
+
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart2, (uint8_t*)usart_rx_dma_buffer, ARRAY_LEN(usart_rx_dma_buffer) );
+    __HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);//we dont want the half done transaction interrupt
     
     
-    HAL_UART_Receive_DMA(&huart2, (uint8_t*)usart_rx_dma_buffer, ARRAY_LEN(usart_rx_dma_buffer));
     
     //__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
 
   /* USER CODE END 2 */
 
-    
-    
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+       /* 
       while( usart_rx_buffer_ready() )
       {
           // Parse the inbound serial data
           usart_rx_buffer_read();
       }
-      
+      */
       
       
       
@@ -295,9 +325,6 @@ static void MX_DMA_Init(void)
   /* DMA1_Stream5_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
-  /* DMA1_Stream6_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
 
 }
 
